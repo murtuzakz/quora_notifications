@@ -1,0 +1,29 @@
+a = $('div.pagedlist_item .notification_text').each(function(){ console.log($(this).find("a").each(function(key,value){if(key === 0 || key === 1){console.log(value);}}))});
+a = $('div.pagedlist_item .notification_text').each(function(){ console.log($(this).find("a").each(function(key,value){if(key === 0 || key === 1){console.log(value.href);}}))});
+a = $('div.pagedlist_item .notification_text').each(function(){ console.log($(this).find("a").each(function(key,value){if(key === 0 || key === 1){value.href.split("http://www.quora.com/");}}))});
+
+
+
+
+
+notifications = {}
+ a = $('div.pagedlist_item .notification_text').each(function(){
+ a_tags = $(this).find("a");
+ console.log(a_tags[1]);
+ if($(a_tags[0]).attr('arg') === undefined){}
+ else{
+   topic = a_tags[1].href.split("http://www.quora.com/")[1].split("?")[0];
+   if( notifications[topic] === undefined ){
+   	 notifications[topic] = [];
+   }
+   note = a_tags[0].href.split("http://www.quora.com/")[1].split("?")[0];
+   notifications[topic].push(note);
+ }
+});
+
+
+================================
+Things needed for extension : 
+1. Manifest file.
+2. HTML file.
+3. CSS/Javascript file.

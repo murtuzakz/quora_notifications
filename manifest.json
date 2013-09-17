@@ -1,0 +1,21 @@
+{
+  "name": "Awesome Quora Notifications",
+  "manifest_version": 2,
+  "version": "1.0",
+  "permissions": [
+    "tabs", "http://www.quora.com/notifications"
+  ],
+  "content_scripts" : [{
+        "matches" : [ "http://www.quora.com/notifications"],
+        "js" : ["jquery.js","scraper.js"]
+    }],
+  "description": "Categorizes your Quora Notifications.",
+  "browser_action": {
+    "default_title": "Quora Notifications",
+    "default_icon": "icon_19.png",
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    "jquery.js"
+  ]
+}
