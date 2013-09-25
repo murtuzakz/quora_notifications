@@ -1,10 +1,14 @@
 {
   "name": "Awesome Quora Notifications",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "1.0",
   "permissions": [
     "tabs", "http://www.quora.com/notifications"
   ],
+  "background":{
+    "scripts":["background.js"],
+    "persistent": false
+  },
   "content_scripts" : [{
         "matches" : [ "http://www.quora.com/notifications"],
         "js" : ["jquery.js","scraper.js"]
@@ -15,7 +19,7 @@
     "default_icon": "icon_19.png",
     "default_popup": "popup.html"
   },
-  "web_accessible_resources": [
-    "jquery.js"
-  ]
+   "web_accessible_resources": [
+     "jquery.js"
+   ]
 }
