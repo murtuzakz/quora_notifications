@@ -1,5 +1,5 @@
 notifications = {}
-count = parseInt($(".count").first().html());
+count = 60//parseInt($(".count").first().html());
 var animateFn = function () {
 	if ( count > 0 ) {
 		setTimeout(function(){
@@ -29,10 +29,31 @@ var fn2 = function () {
 		  notifications[topic].push(note);
 		}	
 	});
-	console.log(notifications);
-	chrome.runtime.sendMessage( notifications )
+	// chrome.runtime.sendMessage( notifications )
+	// update_url();
+	build_web_page(notifications);
 	//chrome.extension.sendMessage( notifications )
 }
 animateFn();
 
+function update_url(){
+	chrome.tabs.getSelected(function (tab) {
+	  var tabUrl = encodeURIComponent(tab.url);
+	  var tabTitle = encodeURIComponent(tab.title);
+	  chrome.tabs.update(tab.id, {url: "chrome-extensions://test/hello.html"});
+	});
+}
 
+function build_web_page(notifications_object){
+	data = "";
+	for (var topic in notifications){
+    if (notifications.hasOwnProperty(topic)) {
+    	data += "<br/><br/><br/><br/><br/><br/>";
+    	var list_obj = notifications[topic];
+      for(var i=0; i< list_obj.length; i++){
+        data += '<div>'+list_obj[i]+'</div>';
+      }
+    }
+  }
+  document.body.innerHTML = data;
+}
