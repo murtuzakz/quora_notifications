@@ -1,5 +1,5 @@
 notifications = {}
-count = 60//parseInt($(".count").first().html());
+count = parseInt($(".count").first().html());
 var animateFn = function () {
 	if ( count > 0 ) {
 		setTimeout(function(){
@@ -34,6 +34,7 @@ var fn2 = function () {
 	build_web_page(notifications);
 	//chrome.extension.sendMessage( notifications )
 }
+
 animateFn();
 
 function update_url(){
@@ -48,12 +49,13 @@ function build_web_page(notifications_object){
 	data = "";
 	for (var topic in notifications){
     if (notifications.hasOwnProperty(topic)) {
-    	data += "<br/><br/><br/><br/><br/><br/>";
+    	data += '<div>'+ topic +'</div>';
     	var list_obj = notifications[topic];
       for(var i=0; i< list_obj.length; i++){
         data += '<div>'+list_obj[i]+'</div>';
       }
     }
+    data += "<br/><br/><br/><br/><br/><br/>";
   }
   document.body.innerHTML = data;
 }
