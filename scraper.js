@@ -49,11 +49,9 @@ function scrape() {
 			 	 notifications[topic] = [];
 			  }
 			  note = a_tags[0].href.split("http://www.quora.com/")[1];
-			  console.log("Questions ::" + topic + " :: " + note);
 			  notifications[topic].push(note);
 			}else if(obj0.hasOwnProperty("aid")){
 				topic = a_tags[0].href.split("http://www.quora.com/")[1].split("?")[0];
-				console.log(topic);
 			  if( notifications_answers[topic] === undefined ){
 			 	 notifications_answers[topic] = [];
 			  }
@@ -62,24 +60,36 @@ function scrape() {
 			}
 		}
 	});
-	console.log(notifications);
-	console.log("now answwers");
-	console.log(notifications_answers);
-	build_web_page(notifications);
+	build_web_page();
 }
 
 animateFn();
+
 var style = "<style type='text/css'>\
 li {color:blue;text-align:center}\
 ul {font-size:20px;}\
-</style>"
-function build_web_page(notifications_object){
-	data = "QUESTIONS :::";
-	data += style;
+</style>\
+"
+
+var js = "<script type='text/javascript'>\
+$.(document).ready(\
+	function notification_killer(topic){\
+		for(var i=0; i < array.length; i++){\
+			console.log('clearing' + array[i] );\
+			$.ajax({ url: array[i] });\
+		}\
+	}\
+);\
+</script>\
+"
+
+function build_web_page(){
+	data = "";
+	data += "QUESTIONS :::";
 	for (var topic in notifications){
     if (notifications.hasOwnProperty(topic)) {
     	var list_obj = notifications[topic];
-    	data += '<ul>'+ topic + '  (' + list_obj.length + ')';
+    	data += '<ul onclick=' + 'notification_killer("' + list_obj + '")>' + topic +'  (' + list_obj.length + ')';
       for(var i=0; i< list_obj.length; i++){
         data += '<li>'+list_obj[i]+'</li>';
       }
@@ -87,7 +97,7 @@ function build_web_page(notifications_object){
     data += "</ul><br/><br/><br/><br/><br/><br/>";
   }
   data += "<br/><br/><br/><br/>ANSWERS :::<br/><br/>";
-	data += style;
+	
 	for (var topic in notifications_answers){
     if (notifications_answers.hasOwnProperty(topic)) {
     	var list_obj = notifications_answers[topic];
@@ -98,12 +108,16 @@ function build_web_page(notifications_object){
     }
     data += "</ul><br/><br/><br/><br/><br/><br/>";
   }
+  document.head.innerHTML = style;
   document.body.innerHTML = data;
+  alert( chrome.extension.getURL("killer.js") );
+  $.getScript(chrome.extension.getURL("killer.js"));
 }
 
-function notification_killer(array){
-	for(var i=0; i < array.length; i++){
-		console.log("clearing" + array[i] );
-		$.ajax({ url: array[i] });
-	}
-}
+// function notification_killer(array){\
+// 	alert('yoyo');\
+// 	for(var i=0; i < array.length; i++){\
+// 		console.log('clearing' + array[i] );\
+// 		$.ajax({ url: array[i] });\
+// 	}\
+// }\

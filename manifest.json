@@ -11,7 +11,7 @@
   ],
   "content_scripts" : [{
         "matches" : ["http://www.quora.com/notifications" ],
-        "js" : ["jquery.js"]
+        "js" : ["jquery.js","killer.js"]
     }],
   "description": "Categorizes your Quora Notifications.",
   "browser_action": {
@@ -19,6 +19,6 @@
     "default_icon": "icon_19.png"
   },
    "web_accessible_resources": [
-     "jquery.js"
+     "jquery.js","killer.js"
    ]
 }
