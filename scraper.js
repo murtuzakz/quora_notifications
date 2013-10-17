@@ -13,10 +13,10 @@ var animateFn = function () {
 		}, 100)
 		
 	} else {
-		fn2();
+		scrape();
 	}
 }
-var fn2 = function () {
+function scrape() {
 	$("body").animate({ scrollTop: 0 }, "slow");
 	$('div.pagedlist_item li.unseen .notification_text').each(function(){
 		a_tags = $(this).find("a");
