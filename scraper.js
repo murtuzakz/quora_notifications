@@ -110,7 +110,6 @@ function build_web_page(){
   }
   document.head.innerHTML = style;
   document.body.innerHTML = data;
-  alert( chrome.extension.getURL("killer.js") );
   $.getScript(chrome.extension.getURL("killer.js"));
 }
 
