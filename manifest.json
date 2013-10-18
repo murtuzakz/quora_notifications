@@ -19,6 +19,6 @@
     "default_icon": "icon_19.png"
   },
    "web_accessible_resources": [
-     "jquery.js","killer.js"
+     "jquery.js","killer.js","cross.png"
    ]
 }

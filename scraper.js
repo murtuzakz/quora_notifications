@@ -67,20 +67,9 @@ animateFn();
 
 var style = "<style type='text/css'>\
 li {color:blue;text-align:center}\
-ul {font-size:20px;}\
+ul {font-size:20px;text-align:center; list-style: none;}\
+ul span{background: url('" + chrome.extension.getURL("cross.png") + "') no-repeat; height: 16px; width:16px; display: inline-block; top: 2px; left: 20px; position:relative;}\
 </style>\
-"
-
-var js = "<script type='text/javascript'>\
-$.(document).ready(\
-	function notification_killer(topic){\
-		for(var i=0; i < array.length; i++){\
-			console.log('clearing' + array[i] );\
-			$.ajax({ url: array[i] });\
-		}\
-	}\
-);\
-</script>\
 "
 
 function build_web_page(){
@@ -89,13 +78,15 @@ function build_web_page(){
 	for (var topic in notifications){
     if (notifications.hasOwnProperty(topic)) {
     	var list_obj = notifications[topic];
-    	data += '<ul onclick=' + 'notification_killer("' + list_obj + '")>' + topic +'  (' + list_obj.length + ')';
+    	data += '<ul>' + topic +'  (' + list_obj.length + ')';
+    	data += '<span onclick=' + 'notification_killer("' + list_obj + '")></span>'
       for(var i=0; i< list_obj.length; i++){
         data += '<li>'+list_obj[i]+'</li>';
       }
     }
     data += "</ul><br/><br/><br/><br/><br/><br/>";
   }
+  
   data += "<br/><br/><br/><br/>ANSWERS :::<br/><br/>";
 	
 	for (var topic in notifications_answers){
@@ -112,11 +103,3 @@ function build_web_page(){
   document.body.innerHTML = data;
   $.getScript(chrome.extension.getURL("killer.js"));
 }
-
-// function notification_killer(array){\
-// 	alert('yoyo');\
-// 	for(var i=0; i < array.length; i++){\
-// 		console.log('clearing' + array[i] );\
-// 		$.ajax({ url: array[i] });\
-// 	}\
-// }\
