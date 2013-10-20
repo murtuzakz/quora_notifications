@@ -66,40 +66,37 @@ function scrape() {
 animateFn();
 
 var style = "<style type='text/css'>\
-li {color:blue;text-align:center}\
-ul {font-size:20px;text-align:center; list-style: none;}\
-ul span{background: url('" + chrome.extension.getURL("cross.png") + "') no-repeat; height: 16px; width:16px; display: inline-block; top: 2px; left: 20px; position:relative;}\
+li.extension {color:blue;text-align:center}\
+ul.extension {font-size:15px;text-align:center; list-style: none;}\
+span.extension {background: url('" + chrome.extension.getURL("cross.png") + "') no-repeat; height: 16px; width:16px; display: inline-block; top: 2px; left: 20px; position:relative;}\
 </style>\
 "
 
 function build_web_page(){
 	data = "";
-	data += "QUESTIONS :::";
+	data += "<ul class='extension'> QUESTIONS :::";
 	for (var topic in notifications){
     if (notifications.hasOwnProperty(topic)) {
     	var list_obj = notifications[topic];
-    	data += '<ul>' + topic +'  (' + list_obj.length + ')';
-    	data += '<span onclick=' + 'notification_killer("' + list_obj + '")></span>'
-      for(var i=0; i< list_obj.length; i++){
-        data += '<li>'+list_obj[i]+'</li>';
-      }
+    	data += '<li class="extension">' + topic +'  (' + list_obj.length + ')';
+    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
     }
-    data += "</ul><br/><br/><br/><br/><br/><br/>";
   }
-  
-  data += "<br/><br/><br/><br/>ANSWERS :::<br/><br/>";
+  data += "</ul>";
+  data += "<br/><br/><br/><br/>"
+  data += "<ul> ANSWERS :::";
 	
 	for (var topic in notifications_answers){
     if (notifications_answers.hasOwnProperty(topic)) {
     	var list_obj = notifications_answers[topic];
-    	data += '<ul>'+ topic + '  (' + list_obj.length + ')';
-      for(var i=0; i< list_obj.length; i++){
-        data += '<li>'+list_obj[i]+'</li>';
-      }
+    	data += '<li>'+ topic + '  (' + list_obj.length + ')';
+    	data += '<span onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
     }
-    data += "</ul><br/><br/><br/><br/><br/><br/>";
+    
   }
-  document.head.innerHTML = style;
-  document.body.innerHTML = data;
+  data += "</ul>";
+  document.head.innerHTML += style;
+  $("div .right_col_inner").html(data);
+  // document.body.innerHTML = data;
   $.getScript(chrome.extension.getURL("killer.js"));
 }
