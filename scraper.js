@@ -1,5 +1,6 @@
 notifications = {}
 notifications_answers = {}
+notification_follows = []
 count = parseInt($(".count").first().html());
 var animateFn = function () {
 	if ( count > 0 ) {
@@ -10,7 +11,7 @@ var animateFn = function () {
 				animateFn();
 		  }
 		});	
-		}, 100)
+		}, 200)
 		
 	} else {
 		scrape();
@@ -33,6 +34,10 @@ function scrape() {
 				  }
 				  note = a_tags[1].href.split("http://www.quora.com/")[1];
 				  notifications_answers[topic].push(note);
+				}
+				else if(obj.hasOwnProperty("uid")){
+					follow = a_tags[1].href.split("http://www.quora.com/")[1];
+					notification_follows.push( follow );
 				}
 			}
 		}
@@ -96,6 +101,13 @@ function build_web_page(){
     
   }
   data += "</ul>";
+
+  data += "<br/><br/>"
+  data += "<ul class='extension'> Follows :::";
+	data += '<li class="extension"> Followers (' + notification_follows.length + ')';
+	data += '<span class="extension" onclick=' + 'notification_killer("' + notification_follows + '")></span></li>'
+  data += "</ul>";
+
   document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
