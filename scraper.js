@@ -52,6 +52,7 @@ function scrape() {
 			  notifications[topic].push(note);
 			}else if(obj0.hasOwnProperty("aid")){
 				topic = a_tags[0].href.split("http://www.quora.com/")[1].split("?")[0];
+				topic = topic.split("/answer")[0]
 			  if( notifications_answers[topic] === undefined ){
 			 	 notifications_answers[topic] = [];
 			  }
@@ -84,18 +85,19 @@ function build_web_page(){
   }
   data += "</ul>";
   data += "<br/><br/><br/><br/>"
-  data += "<ul> ANSWERS :::";
+  data += "<ul class='extension'> ANSWERS :::";
 	
 	for (var topic in notifications_answers){
     if (notifications_answers.hasOwnProperty(topic)) {
     	var list_obj = notifications_answers[topic];
-    	data += '<li>'+ topic + '  (' + list_obj.length + ')';
-    	data += '<span onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
+    	data += '<li class="extension">'+ topic + '  (' + list_obj.length + ')';
+    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
     }
     
   }
   data += "</ul>";
   document.head.innerHTML += style;
+  $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
   // document.body.innerHTML = data;
   $.getScript(chrome.extension.getURL("killer.js"));
