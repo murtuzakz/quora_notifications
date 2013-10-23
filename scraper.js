@@ -19,6 +19,17 @@ var animateFn = function () {
 		scrape();
 	}
 }
+
+function isEmpty(object){
+   for(var key in object) {
+      if (object.hasOwnProperty(key)) {
+         return false;
+      }
+   }
+   return true;
+}
+
+
 function scrape() {
 	$("body").animate({ scrollTop: 0 }, "slow");
 	$('div.pagedlist_item li.unseen .notification_text').each(function(){
@@ -68,6 +79,8 @@ function scrape() {
 			}
 		}
 	});
+	console.log(notifications);
+	console.log(notifications_answers);
 	build_web_page();
 }
 
@@ -82,7 +95,7 @@ span.extension {background: url('" + chrome.extension.getURL("cross.png") + "') 
 
 function build_web_page(){
 	data = "";
-	if(notifications.length > 0){
+	if(!isEmpty(notifications)){
 		data += "<ul class='extension'> QUESTIONS :::";
 		for (var topic in notifications){
 	    if (notifications.hasOwnProperty(topic)) {
@@ -94,7 +107,7 @@ function build_web_page(){
 	  data += "</ul>";
 	}
 
-  if(notifications_answers.length > 0){
+  if(!isEmpty(notifications_answers)){
 	  data += "<br/><br/><br/><br/>"
 	  data += "<ul class='extension'> ANSWERS :::";
 		
@@ -108,7 +121,7 @@ function build_web_page(){
 	  }
 	  data += "</ul>";
 	}
-  if(notification_follows.length > 0){
+  if(!isEmpty(notification_follows)){
 	  data += "<br/><br/>"
 	  data += "<ul class='extension'> Follows :::";
 		data += '<li class="extension"> Followers (' + notification_follows.length + ')';
@@ -116,13 +129,10 @@ function build_web_page(){
 	  data += "</ul>";
 	}
 	
-	if(data === ""){
-		data += "You're All good!"
-	}
-
   document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
   // document.body.innerHTML = data;
   $.getScript(chrome.extension.getURL("killer.js"));
 }
+
