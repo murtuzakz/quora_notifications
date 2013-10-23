@@ -1,13 +1,15 @@
 notifications = {}
 notifications_answers = {}
 notification_follows = []
-count = parseInt($(".count").first().html());
+notification_count = parseInt($(".count").first().html());
+count = 0;
 var animateFn = function () {
-	if ( count > 0 ) {
+	if ( count < notification_count ) {
 		setTimeout(function(){
 			$("body").animate({ scrollTop: $(document).height() }, {
 			complete: function () {
-				count -= 15;
+				// count -= 15;
+				count = $('div.pagedlist_item li.unseen .notification_text').length
 				animateFn();
 		  }
 		});	
