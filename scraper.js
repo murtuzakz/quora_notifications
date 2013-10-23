@@ -103,13 +103,13 @@ function build_web_page(){
     
   }
   data += "</ul>";
-
-  data += "<br/><br/>"
-  data += "<ul class='extension'> Follows :::";
-	data += '<li class="extension"> Followers (' + notification_follows.length + ')';
-	data += '<span class="extension" onclick=' + 'notification_killer("' + notification_follows + '")></span></li>'
-  data += "</ul>";
-
+  if(notification_follows.length > 0){
+	  data += "<br/><br/>"
+	  data += "<ul class='extension'> Follows :::";
+		data += '<li class="extension"> Followers (' + notification_follows.length + ')';
+		data += '<span class="extension" onclick=' + 'notification_killer("' + notification_follows + '")></span></li>'
+	  data += "</ul>";
+	}
   document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
