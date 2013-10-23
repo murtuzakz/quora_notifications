@@ -82,27 +82,32 @@ span.extension {background: url('" + chrome.extension.getURL("cross.png") + "') 
 
 function build_web_page(){
 	data = "";
-	data += "<ul class='extension'> QUESTIONS :::";
-	for (var topic in notifications){
-    if (notifications.hasOwnProperty(topic)) {
-    	var list_obj = notifications[topic];
-    	data += '<li class="extension">' + topic +'  (' + list_obj.length + ')';
-    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
-    }
-  }
-  data += "</ul>";
-  data += "<br/><br/><br/><br/>"
-  data += "<ul class='extension'> ANSWERS :::";
-	
-	for (var topic in notifications_answers){
-    if (notifications_answers.hasOwnProperty(topic)) {
-    	var list_obj = notifications_answers[topic];
-    	data += '<li class="extension">'+ topic + '  (' + list_obj.length + ')';
-    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
-    }
-    
-  }
-  data += "</ul>";
+	if(notifications.length > 0){
+		data += "<ul class='extension'> QUESTIONS :::";
+		for (var topic in notifications){
+	    if (notifications.hasOwnProperty(topic)) {
+	    	var list_obj = notifications[topic];
+	    	data += '<li class="extension">' + topic +'  (' + list_obj.length + ')';
+	    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
+	    }
+	  }
+	  data += "</ul>";
+	}
+
+  if(notifications_answers.length > 0){
+	  data += "<br/><br/><br/><br/>"
+	  data += "<ul class='extension'> ANSWERS :::";
+		
+		for (var topic in notifications_answers){
+	    if (notifications_answers.hasOwnProperty(topic)) {
+	    	var list_obj = notifications_answers[topic];
+	    	data += '<li class="extension">'+ topic + '  (' + list_obj.length + ')';
+	    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
+	    }
+	    
+	  }
+	  data += "</ul>";
+	}
   if(notification_follows.length > 0){
 	  data += "<br/><br/>"
 	  data += "<ul class='extension'> Follows :::";
@@ -110,6 +115,11 @@ function build_web_page(){
 		data += '<span class="extension" onclick=' + 'notification_killer("' + notification_follows + '")></span></li>'
 	  data += "</ul>";
 	}
+	
+	if(data === ""){
+		data += "You're All good!"
+	}
+
   document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
