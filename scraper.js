@@ -13,8 +13,7 @@ var animateFn = function () {
 				animateFn();
 		  }
 		});	
-		}, 200)
-		
+		}, 200)		
 	} else {
 		scrape();
 	}
@@ -115,9 +114,8 @@ function build_web_page(){
 	    if (notifications_answers.hasOwnProperty(topic)) {
 	    	var list_obj = notifications_answers[topic];
 	    	data += '<li class="extension">'+ topic + '  (' + list_obj.length + ')';
-	    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li>'
-	    }
-	    
+	    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li><br/>'
+	    }	    
 	  }
 	  data += "</ul>";
 	}
