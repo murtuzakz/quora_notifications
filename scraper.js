@@ -2,6 +2,7 @@ notifications = {}
 notifications_answers = {}
 notification_follows = []
 notification_count = parseInt($(".count").first().html());
+uncategorised = []
 count = 0;
 var animateFn = function () {
 	if ( count < notification_count ) {
@@ -35,6 +36,7 @@ function scrape() {
 		a_tags = $(this).find("a");
 		if($(a_tags[0]).attr('arg') === undefined){
 			if( $(a_tags[1]).attr('arg') === undefined ){
+				uncategorised.push(a_tags[1].href)
 			}
 			else{
 				obj = eval("(" + $(a_tags[1]).attr('arg') + ")");
@@ -78,8 +80,6 @@ function scrape() {
 			}
 		}
 	});
-	console.log(notifications);
-	console.log(notifications_answers);
 	build_web_page();
 }
 
@@ -127,10 +127,17 @@ function build_web_page(){
 	  data += "</ul>";
 	}
 	
+  if(uncategorised.length > 0){
+	  data += "<br/><br/>"
+	  data += "<ul class='extension'> Uncategorised ";
+		data += '(' + uncategorised.length + ')';
+		data += '<span class="extension" onclick=' + 'notification_killer("' + uncategorised + '")></span>'
+	  data += "</ul>";
+	}
+
   document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
-  // document.body.innerHTML = data;
   $.getScript(chrome.extension.getURL("killer.js"));
 }
 
