@@ -113,7 +113,7 @@ function build_web_page(){
 		for (var topic in notifications_answers){
 	    if (notifications_answers.hasOwnProperty(topic)) {
 	    	var list_obj = notifications_answers[topic];
-	    	data += '<li class="extension">'+ topic + '  (' + list_obj.length + ')';
+	    	data += '<li class="extension"><a href=' + "http://www.quora.com/" + topic + '>' + topic + "</a>" + '  (' + list_obj.length + ')';
 	    	data += '<span class="extension" onclick=' + 'notification_killer("' + list_obj + '")></span></li><br/>'
 	    }	    
 	  }
