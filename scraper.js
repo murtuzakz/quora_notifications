@@ -85,12 +85,12 @@ function scrape() {
 
 animateFn();
 
-var style = "<style type='text/css'>\
-li.extension {color:blue;text-align:center}\
-ul.extension {font-size:15px;text-align:center; list-style: none;}\
-span.extension {background: url('" + chrome.extension.getURL("cross.png") + "') no-repeat; height: 16px; width:16px; display: inline-block; top: 2px; left: 20px; position:relative;}\
-</style>\
-"
+// var style = "<style type='text/css'>\
+// li.extension {color:blue;text-align:center}\
+// ul.extension {font-size:15px;text-align:center; list-style: none;}\
+// span.extension {background: url('" + chrome.extension.getURL("cross.png") + "') no-repeat; height: 16px; width:16px; display: inline-block; top: 2px; left: 20px; position:relative;}\
+// </style>\
+// "
 
 function build_web_page(){
 	data = "";
@@ -135,9 +135,10 @@ function build_web_page(){
 	  data += "</ul>";
 	}
 
-  document.head.innerHTML += style;
+  // document.head.innerHTML += style;
   $("div .right_col_inner").removeClass('fixable_fixed');
   $("div .right_col_inner").html(data);
+  $('head').append('<link rel="stylesheet" type="text/css" href="' + chrome.extension.getURL("style.css") + '"/>');
   $.getScript(chrome.extension.getURL("killer.js"));
 }
 

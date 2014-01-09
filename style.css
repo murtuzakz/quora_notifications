@@ -1,0 +1,18 @@
+li.extension {
+  color:blue;
+  text-align:center
+}
+ul.extension {
+  font-size:15px;
+  text-align:center;
+  list-style: none;
+}
+span.extension {
+  background: url("/cross.png") no-repeat;
+  height: 16px;
+  width:16px;
+  display: inline-block; 
+  top: 2px; 
+  left: 20px; 
+  position:relative;
+}
